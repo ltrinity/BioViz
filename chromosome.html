@@ -1,0 +1,184 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Gene Expression!
+        </title>
+    </head>
+    <body>
+        <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
+        <h1>Gene Expression Exploration: Chromosome 1</h1> 
+        <form>
+            <group class="inline-radio", id ="filters">
+                <div>
+                    <input type="radio" name="filter" id="none" value="none" checked>
+                    <label id='nonelabel'>None</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="signaling" value="signaling">
+                    <label id='signalinglabel'>Signaling</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="transcription" value="transcription">
+                    <label id='transcriptionlabel'>Transcription</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="metabolism" value="metabolism">
+                    <label id='metabolismlabel'>Metabolism</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="epigenetics" value="epigenetics">
+                    <label id='epigeneticslabel'>Epigenetics</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="adhesion" value="adhesion">
+                    <label id='adhesionlabel'>Adhesion</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="extracellular" value="extracellular">
+                    <label id='extracellularlabel'>Extracellular</label>
+                </div>
+                <div>
+                    <input type="radio" name="filter" id="ucr" value="ucr">
+                    <label id='ucrlabel'>Unidentified Region</label>
+                </div>
+            </group>
+            <p id="clickbutton">Click one of the buttons above to select a <a href="http://geneontology.org/" target="_blank" title="testing">gene ontology</a> subset.</p>
+            <p id="dragwindow"><b>Click and drag</b> below to move the handles left and right, or shift the entire window.<br>Press the <b>Enter</b> key to zoom in.</p>
+            <p id="hoverexplain"><b>Click and drag</b> to move the handles or shift the entire window. Press the <b>Enter</b> key to zoom in.<br><b>Hover</b> over a gene to show additional info. Press the <b>Esc</b> key to zoom out and change subsets.</p>        </form>
+        <script src="http://d3js.org/d3.v5.min.js"></script>
+        <!-- old version of d3: 
+        <script src="https://d3js.org/d3.v5.min.js"  charset="utf-8"></script> -->
+        
+        <script src="movableRectangle.js"></script> 
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script>
+            function showTooltip(evt, text) {
+            let tooltip = document.getElementById("tooltip");
+            tooltip.innerHTML = 'Gene Symbol: <b>' + text.split(',')[0] + '</b><br>EC Fold Change Range: <b style="color:' + text.split(',')[3] + '">' + text.split(',')[1] +
+                '</b><br>Nn Fold Change Range: <b style = "color:' +text.split(',')[4] + '">' + text.split(',')[2] +'</b>';
+            tooltip.style.display = "block";
+            tooltip.style.left = evt.pageX + 10 + 'px';
+            tooltip.style.top = evt.pageY + 10 + 'px';
+            }
+
+            function hideTooltip() {
+            console.log("hide");
+            var tooltip = document.getElementById("tooltip");
+            tooltip.style.display = "none";
+            }
+
+
+
+
+            //Event listener needs to be in html <script>
+            d3.select("#filters").on("change", changeOverlaidGroup);
+                
+
+            $('#xChecked').click(function() {
+                //isXChecked = !isXChecked;
+                dragbarleft 
+                    .attr("fill-opacity", (isXChecked ? 0.5 : 0))
+                    .attr("cursor", (isXChecked ? "ew-resize" : "move"));
+                dragbarright 
+                    .attr("fill-opacity", (isXChecked ? 0.5 : 0))
+                    .attr("cursor", (isXChecked ? "ew-resize" : "move"));
+            });
+
+
+            $('input[id="none"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "block"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "none"
+            })
+            $('input[id="signaling"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+            $('input[id="transcription"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+            $('input[id="metabolism"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+            $('input[id="epigenetics"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+            $('input[id="adhesion"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+            $('input[id="extracellular"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+            $('input[id="ucr"]').on("click", function(e) {
+                console.log("click");
+                var x = document.getElementById("clickbutton");
+                x.style.display = "none"
+                var y = document.getElementById("dragwindow");
+                y.style.display = "block"
+            })
+  
+        </script>
+        <div id="wrapper">
+        <h2 id="left">Change Chromosome</h2> 
+        <form action="chromosome.html" method="get" id="right">
+        <div class="box" >
+            <select name = "chr" >
+                    <option value = "1">Chromosome 1</option>
+                    <option value = "2">Chromosome 2</option>
+                    <option value = "3">Chromosome 3</option>
+                    <option value = "4">Chromosome 4</option>
+                    <option value = "5">Chromosome 5</option>
+                    <option value = "6">Chromosome 6</option>
+                    <option value = "7">Chromosome 7</option>
+                    <option value = "8">Chromosome 8</option>
+                    <option value = "9">Chromosome 9</option>
+                    <option value = "10">Chromosome 10</option>
+                    <option value = "11">Chromosome 11</option>
+                    <option value = "12">Chromosome 12</option>
+                    <option value = "13">Chromosome 13</option>
+                    <option value = "14">Chromosome 14</option>
+                    <option value = "15">Chromosome 15</option>
+                    <option value = "16">Chromosome 16</option>
+                    <option value = "17">Chromosome 17</option>
+                    <option value = "18">Chromosome 18</option>
+                    <option value = "19">Chromosome 19</option>
+                    <option value = "20">Chromosome 20</option>
+                    <!-- <option value = "21">Chromosome 21</option>
+                    <option value = "22">Chromosome 22</option> -->
+                    <option value = "X">Chromosome X</option>
+                    <!-- <option value = "Y">Chromosome Y</option> -->
+                </select>       
+                </div>
+            <div class="loginbox" style="display:inline;">   
+            <input type="submit" value="Submit" style="display:inline;">
+            </div>
+        </form>
+    </div>
+    </body>
+</html>
